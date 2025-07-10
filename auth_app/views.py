@@ -5,7 +5,8 @@ from rest_framework import status
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from .utils import generate_jwt_token, decode_jwt_token
-from datetime import datetime, timedelta
+from datetime import timedelta
+from django.utils import timezone  # Changed: Use Django's timezone utility
 from django.conf import settings
 
 @api_view(['POST'])
@@ -27,11 +28,11 @@ def login(request):
     user = authenticate(username=username, password=password)
     if user:
         token = generate_jwt_token(user)
-        expires = datetime.utcnow() + timedelta(seconds=settings.JWT_EXPIRATION_DELTA)
+        expires = timezone.now() + timedelta(seconds=settings.JWT_EXPIRATION_DELTA)
 
         return Response({
             'token': token,
-            'expires': expires.strftime('%Y-%m-%dT%H:%M:%SZ')
+            'expires': expires.isoformat()  # Changed: Use isoformat() for proper timezone formatting
         }, status=status.HTTP_200_OK)
 
     return Response({
@@ -90,12 +91,13 @@ def validate_token(request):
                 'message': payload['error']
             }, status=status.HTTP_401_UNAUTHORIZED)
 
-        expires = datetime.utcfromtimestamp(payload['exp'])
+        # Changed: Use timezone-aware datetime conversion
+        expires = timezone.datetime.fromtimestamp(payload['exp'], tz=timezone.utc)
 
         return Response({
             'valid': True,
             'user': request.user.username,
-            'expires': expires.strftime('%Y-%m-%dT%H:%M:%SZ')
+            'expires': expires.isoformat()  # Changed: Use isoformat() for proper timezone formatting
         }, status=status.HTTP_200_OK)
 
     except Exception as e:
