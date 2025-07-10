@@ -10,6 +10,7 @@ A secure, production-ready JWT authentication API built with Django REST Framewo
 - **PostgreSQL Database**: Robust database backend with health checks
 - **Comprehensive Testing**: 100+ test cases covering security, performance, and edge cases
 - **Production Ready**: Configured for AWS EC2 deployment with proper security measures
+- **Postman Collection**: Ready-to-use Postman collection for API testing
 
 ## 📋 API Endpoints
 
@@ -130,20 +131,46 @@ chmod +x test_api.sh
 ./test_api.sh
 ```
 
+### 📮 Postman Collection
+
+A Postman collection is included for easy API testing:
+
+**File**: `JWT_Auth_API.postman_collection.json`
+
+**Environment Variables**:
+- `base_url`: `http://localhost:8000` (default)
+- `jwt_token`: Auto-populated after login
+
+**Import Instructions**:
+1. Open Postman
+2. Click "Import" button
+3. Select the `JWT_Auth_API.postman_collection.json` file
+4. The collection will be imported with all endpoints configured
+
+**Testing Workflow**:
+1. **Login** → Get JWT token (automatically updates `jwt_token` variable)
+2. **Verify Token** → Confirm token is valid
+3. **Validate Token** → Get user info using Bearer token
+
 ### Manual Testing with cURL
 
 **1. Login to get a token:**
 ```bash
 curl -X POST "http://localhost:8000/api/auth/login/" \
   -H "Content-Type: application/json" \
-  -d '{"username":"admin","password":"admin123"}'
+  -d '{
+    "username": "admin",
+    "password": "admin123"
+}'
 ```
 
 **2. Verify the token:**
 ```bash
 curl -X POST "http://localhost:8000/api/auth/verify/" \
   -H "Content-Type: application/json" \
-  -d '{"token":"YOUR_TOKEN_HERE"}'
+  -d '{
+    "token": "YOUR_TOKEN_HERE"
+}'
 ```
 
 **3. Validate with Authorization header:**
@@ -173,6 +200,7 @@ jwt-auth-api/
 ├── docker-compose.yml          # Docker Compose configuration
 ├── Dockerfile                  # Docker image definition
 ├── requirements.txt            # Python dependencies
+├── JWT_Auth_API.postman_collection.json  # Postman collection
 ├── quick_start.sh             # Quick setup script
 ├── test_api.sh                # API testing script
 ├── aws_deploy.sh              # AWS deployment script
@@ -213,6 +241,19 @@ python manage.py test --verbosity=2
 # Run specific test class
 python manage.py test auth_app.tests.LoginEndpointTests
 ```
+
+## 🔧 Environment Variables
+
+### For API Testing
+
+| Variable | Default Value | Description |
+|----------|---------------|-------------|
+| `base_url` | `http://localhost:8000` | API base URL |
+| `jwt_token` | `your_jwt_token_here` | JWT token (auto-populated in Postman) |
+
+### For Application Configuration
+
+All application configuration is handled through the `.env` file as shown in the Quick Start section.
 
 ## 🚀 Deployment
 
