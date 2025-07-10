@@ -142,6 +142,9 @@ USE_TZ = True                # Enable timezone support
 STATIC_URL = '/static/'                              # URL prefix for static files
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Directory for collected static files
 
+# Use WhiteNoise storage backend for compression and caching
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 # Django REST Framework configuration
 # Global settings for API functionality
 REST_FRAMEWORK = {
