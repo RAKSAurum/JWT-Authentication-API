@@ -1,11 +1,5 @@
-#!/bin/bash
-
-# API Testing Script
-# This script tests all the JWT API endpoints
-
 set -e
 
-# Configuration
 API_BASE_URL="http://localhost:8000"
 USERNAME="admin"
 PASSWORD="admin123"
@@ -14,7 +8,6 @@ echo "Testing JWT Authentication API..."
 echo "API Base URL: $API_BASE_URL"
 echo ""
 
-# Test 1: Login
 echo "Test 1: Login (POST /api/auth/login/)"
 LOGIN_RESPONSE=$(curl -s -X POST "$API_BASE_URL/api/auth/login/" \
   -H "Content-Type: application/json" \
@@ -22,7 +15,6 @@ LOGIN_RESPONSE=$(curl -s -X POST "$API_BASE_URL/api/auth/login/" \
 
 echo "Login Response: $LOGIN_RESPONSE"
 
-# Extract token from response
 TOKEN=$(echo $LOGIN_RESPONSE | python3 -c "import sys, json; print(json.load(sys.stdin)['token'])" 2>/dev/null || echo "")
 
 if [ -z "$TOKEN" ]; then
@@ -34,7 +26,6 @@ echo "✅ Login successful"
 echo "Token: $TOKEN"
 echo ""
 
-# Test 2: Verify token
 echo "Test 2: Verify Token (POST /api/auth/verify/)"
 VERIFY_RESPONSE=$(curl -s -X POST "$API_BASE_URL/api/auth/verify/" \
   -H "Content-Type: application/json" \
@@ -44,7 +35,6 @@ echo "Verify Response: $VERIFY_RESPONSE"
 echo "✅ Token verification completed"
 echo ""
 
-# Test 3: Validate token
 echo "Test 3: Validate Token (GET /api/auth/validate/)"
 VALIDATE_RESPONSE=$(curl -s -X GET "$API_BASE_URL/api/auth/validate/" \
   -H "Authorization: Bearer $TOKEN")
@@ -53,7 +43,6 @@ echo "Validate Response: $VALIDATE_RESPONSE"
 echo "✅ Token validation completed"
 echo ""
 
-# Test 4: Test with invalid token
 echo "Test 4: Test with invalid token"
 INVALID_RESPONSE=$(curl -s -X GET "$API_BASE_URL/api/auth/validate/" \
   -H "Authorization: Bearer invalid_token")

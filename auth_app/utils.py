@@ -1,12 +1,12 @@
 import jwt
 from datetime import timedelta
-from django.utils import timezone  # Fixed: Use Django's timezone utility
+from django.utils import timezone
 from django.conf import settings
 from django.contrib.auth.models import User
 
 def generate_jwt_token(user):
     """Generate JWT token for a user"""
-    now = timezone.now()  # Fixed: Use timezone-aware datetime
+    now = timezone.now() 
     payload = {
         'user_id': user.id,
         'username': user.username,

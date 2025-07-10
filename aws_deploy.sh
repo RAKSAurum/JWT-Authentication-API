@@ -1,43 +1,30 @@
-#!/bin/bash
-
-# AWS EC2 Deployment Script for JWT Authentication API
-# This script sets up Docker and deploys the application on EC2
-
 set -e
 
 echo "Starting AWS EC2 deployment setup..."
 
-# Update system packages
 echo "Updating system packages..."
 sudo yum update -y
 
-# Install Docker
 echo "Installing Docker..."
 sudo yum install -y docker
 sudo systemctl start docker
 sudo systemctl enable docker
 sudo usermod -aG docker $USER
 
-# Install Docker Compose
 echo "Installing Docker Compose..."
 sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 
-# Install Git
 echo "Installing Git..."
 sudo yum install -y git
 
-# Create application directory
 echo "Creating application directory..."
 mkdir -p /home/ec2-user/jwt-auth-api
 cd /home/ec2-user/jwt-auth-api
 
-# Clone repository (replace with your actual repository)
 echo "Cloning repository..."
-# git clone https://github.com/your-username/jwt-auth-api.git .
 
-# Create environment file
 echo "Creating environment file..."
 cat > .env << EOL
 SECRET_KEY=your-super-secret-key-change-this-in-production
@@ -55,19 +42,15 @@ DB_HOST=db
 DB_PORT=5432
 EOL
 
-# Build and start containers
 echo "Building and starting Docker containers..."
 docker-compose up -d --build
 
-# Wait for services to start
 echo "Waiting for services to start..."
 sleep 30
 
-# Run migrations
 echo "Running database migrations..."
 docker-compose exec web python manage.py migrate
 
-# Create superuser (optional)
 echo "Creating superuser..."
 docker-compose exec web python manage.py shell << EOF
 from django.contrib.auth.models import User
@@ -78,11 +61,9 @@ else:
     print('Superuser already exists')
 EOF
 
-# Show running containers
 echo "Showing running containers..."
 docker-compose ps
 
-# Show logs
 echo "Showing recent logs..."
 docker-compose logs --tail=50
 

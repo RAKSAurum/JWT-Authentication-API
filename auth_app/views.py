@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from .utils import generate_jwt_token, decode_jwt_token
 from datetime import timedelta
-from django.utils import timezone  # Changed: Use Django's timezone utility
+from django.utils import timezone 
 from django.conf import settings
 
 @api_view(['POST'])
@@ -32,7 +32,7 @@ def login(request):
 
         return Response({
             'token': token,
-            'expires': expires.isoformat()  # Changed: Use isoformat() for proper timezone formatting
+            'expires': expires.isoformat()
         }, status=status.HTTP_200_OK)
 
     return Response({
@@ -74,7 +74,6 @@ def validate_token(request):
     Requires JWT in Authorization header
     Returns validity, username, and expiry timestamp
     """
-    # Get token from request (already validated by authentication middleware)
     auth_header = request.headers.get('Authorization')
     if not auth_header:
         return Response({
@@ -91,13 +90,12 @@ def validate_token(request):
                 'message': payload['error']
             }, status=status.HTTP_401_UNAUTHORIZED)
 
-        # Changed: Use timezone-aware datetime conversion
         expires = timezone.datetime.fromtimestamp(payload['exp'], tz=timezone.utc)
 
         return Response({
             'valid': True,
             'user': request.user.username,
-            'expires': expires.isoformat()  # Changed: Use isoformat() for proper timezone formatting
+            'expires': expires.isoformat()
         }, status=status.HTTP_200_OK)
 
     except Exception as e:
