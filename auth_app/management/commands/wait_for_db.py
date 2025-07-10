@@ -8,10 +8,6 @@ before the database container is fully ready.
 
 Usage:
     python manage.py wait_for_db
-
-Author: [Your Name]
-Created: [Date]
-Version: 1.0.0
 """
 
 import time

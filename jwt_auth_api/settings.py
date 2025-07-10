@@ -20,10 +20,6 @@ Dependencies:
     - python-decouple for environment variable management
     - PostgreSQL database
     - Django REST Framework
-
-Author: [Your Name]
-Created: [Date]
-Version: 1.0.0
 """
 
 import os

@@ -18,10 +18,6 @@ WSGI servers supported:
 Dependencies:
     - Django (django.core.wsgi)
     - Compatible WSGI server
-
-Author: [Your Name]
-Created: [Date]
-Version: 1.0.0
 """
 
 import os

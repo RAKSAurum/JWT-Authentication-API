@@ -14,10 +14,6 @@ Dependencies:
     - PyJWT library for token operations
     - Django settings for JWT configuration
     - Django timezone utilities
-
-Author: [Your Name]
-Created: [Date]
-Version: 1.0.0
 """
 
 import jwt

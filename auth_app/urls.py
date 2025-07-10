@@ -12,10 +12,6 @@ The URL patterns provide RESTful endpoints for:
 
 All URLs are relative to the app's base URL as configured in the
 main project's URL configuration.
-
-Author: [Your Name]
-Created: [Date]
-Version: 1.0.0
 """
 
 from django.urls import path

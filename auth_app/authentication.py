@@ -12,10 +12,6 @@ Dependencies:
     - Django REST Framework
     - PyJWT library
     - Custom JWT utilities
-
-Author: [Your Name]
-Created: [Date]
-Version: 1.0.0
 """
 
 from rest_framework.authentication import BaseAuthentication

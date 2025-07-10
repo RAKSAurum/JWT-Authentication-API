@@ -13,19 +13,19 @@ system.
 URL Structure:
     /admin/          - Django admin interface
     /api/auth/       - JWT authentication endpoints
+    /static/         - Static files (CSS, JavaScript, images)
 
 Dependencies:
     - Django URL routing system
     - Django admin interface
     - auth_app URL patterns
-
-Author: [Your Name]
-Created: [Date]
-Version: 1.0.0
+    - Django static files framework
 """
 
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 # Main URL patterns for the Django project
 # These patterns define the top-level routing structure
@@ -42,3 +42,14 @@ urlpatterns = [
     # Routes to: login/, verify/, validate/ endpoints
     path('api/auth/', include('auth_app.urls')),
 ]
+
+# Static files serving configuration
+# This section handles serving of static files (CSS, JavaScript, images)
+# Required for Django admin interface styling and functionality
+if settings.DEBUG or not settings.DEBUG:
+    # Serve static files in both development and production modes
+    # This ensures Django admin interface displays with proper styling
+    urlpatterns += static(
+        settings.STATIC_URL,           # URL prefix for static files (/static/)
+        document_root=settings.STATIC_ROOT  # Physical directory path (/app/staticfiles)
+    )

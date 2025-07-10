@@ -10,10 +10,6 @@ functionality including authentication, permissions, and user profiles.
 
 For future extensions, custom user models or related models can be
 defined in this module following Django's model conventions.
-
-Author: [Your Name]
-Created: [Date]
-Version: 1.0.0
 """
 
 from django.db import models

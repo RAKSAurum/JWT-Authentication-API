@@ -21,10 +21,6 @@ Dependencies:
     - Django framework
     - Python 3.6+ (recommended 3.8+)
     - All project dependencies from requirements.txt
-
-Author: [Your Name]
-Created: [Date]
-Version: 1.0.0
 """
 
 import os

@@ -10,10 +10,6 @@ to leverage the existing admin interface for user management.
 Usage:
     This file is automatically loaded by Django when the admin interface
     is accessed at /admin/
-
-Author: [Your Name]
-Created: [Date]
-Version: 1.0.0
 """
 
 from django.contrib import admin

@@ -7,10 +7,6 @@ during the application initialization process.
 
 The configuration includes the default auto field type for model primary keys
 and the application name for Django's application registry.
-
-Author: [Your Name]
-Created: [Date]
-Version: 1.0.0
 """
 
 from django.apps import AppConfig

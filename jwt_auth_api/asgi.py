@@ -17,10 +17,6 @@ ASGI servers supported:
 Dependencies:
     - Django (django.core.asgi)
     - Python 3.7+ (for ASGI support)
-
-Author: [Your Name]
-Created: [Date]
-Version: 1.0.0
 """
 
 import os

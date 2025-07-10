@@ -15,10 +15,6 @@ Dependencies:
     - Django REST Framework
     - Django authentication system
     - Custom JWT utilities from utils module
-
-Author: [Your Name]
-Created: [Date]
-Version: 1.0.0
 """
 
 from rest_framework.decorators import api_view, permission_classes
