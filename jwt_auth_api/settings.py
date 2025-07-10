@@ -64,6 +64,7 @@ INSTALLED_APPS = [
 # List of middleware classes processed in order for each request/response
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',      # Security enhancements
+    'whitenoise.middleware.WhiteNoiseMiddleware',       # Static file serving
     'django.contrib.sessions.middleware.SessionMiddleware',  # Session management
     'django.middleware.common.CommonMiddleware',          # Common functionality
     'django.middleware.csrf.CsrfViewMiddleware',          # CSRF protection
