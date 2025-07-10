@@ -1,17 +1,19 @@
 import jwt
+import uuid
 from datetime import timedelta
 from django.utils import timezone
 from django.conf import settings
 from django.contrib.auth.models import User
 
 def generate_jwt_token(user):
-    """Generate JWT token for a user"""
-    now = timezone.now() 
+    """Generate JWT token for a user with unique identifier"""
+    now = timezone.now()
     payload = {
         'user_id': user.id,
         'username': user.username,
         'exp': now + timedelta(seconds=settings.JWT_EXPIRATION_DELTA),
         'iat': now,
+        'jti': str(uuid.uuid4()),
     }
     
     token = jwt.encode(payload, settings.JWT_SECRET_KEY, 

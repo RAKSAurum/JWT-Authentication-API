@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from .utils import generate_jwt_token, decode_jwt_token
 from datetime import timedelta
-from django.utils import timezone 
+from django.utils import timezone
 from django.conf import settings
 
 @api_view(['POST'])
@@ -17,8 +17,8 @@ def login(request):
     Takes {"username": "user", "password": "pass"}
     Returns JWT token and expiry time
     """
-    username = request.data.get('username')
-    password = request.data.get('password')
+    username = request.data.get('username', '').strip()  
+    password = request.data.get('password', '')
 
     if not username or not password:
         return Response({
@@ -95,7 +95,7 @@ def validate_token(request):
         return Response({
             'valid': True,
             'user': request.user.username,
-            'expires': expires.isoformat()
+            'expires': expires.isoformat() 
         }, status=status.HTTP_200_OK)
 
     except Exception as e:
